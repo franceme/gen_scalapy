@@ -1,0 +1,187 @@
+{
+	"todo-tree.regex.regex": "(\\|%)\s*($TAGS)",
+	"todo-tree.general.tags": [
+		"BUG",
+		"HACK",
+		"FIXME",
+		"TODO",
+		"XXX",
+		"[ ]",
+		"[x]",
+		":>TODO",
+		"note"
+	],
+	"github.copilot.enable": {
+		"*": true,
+		"yaml": false,
+		"plaintext": false,
+		"markdown": false
+	},
+	"l13Diff.confirmCopy": false,
+	"editor.wordWrap": "on",
+	"workbench.colorTheme": "Default Light+",
+	"editor.minimap.enabled": false,
+	"latex-workshop.message.error.show": false,
+	"latex-workshop.message.warning.show": false,
+	"telemetry.enableTelemetry": false,
+	"telemetry.enableCrashReporter": false,
+	"telemetry.telemetryLevel":"off",
+	"workbench.editorAssociations": {
+		"*.ipynb": "jupyter-notebook"
+	},
+	"workbench.editorAssociations": {
+		"*.pdf": "pdf.preview"
+	},
+	"pdf-preview.default.sidebar": true,
+	"git.enableSmartCommit": true,
+	"git.confirmSync": false,
+	"editor.wordWrap": "on"
+	"latex-workshop.latex.recipes": [
+		{
+			"name": "tectonic",
+			"tools": [
+				"tectonic"
+			]
+		}
+	],
+	"files.exclude": {
+		".idea": true,
+		"__pycache__": true,
+		"**/.ipynb_checkpoints/": true,
+		"**/CachedExtensions/": true,
+		"**/CachedExtensionVSIXs/": true,
+		"**/extensions/": true,
+		"**/Machine": true,
+		"**/logs": true,
+		"**/User": true,
+		"**/machineid": true,
+		"**/coder.json": true,
+		"languagepacks.json": true,
+		"**/.pytest_cache/": true,
+		"*.log": true,
+		"*.aux": true,
+		"*.bak*": true,
+		"*.lof": true,
+		"*.lot": true,
+		"*.nlo": true,
+		"*.out": true,
+		"*.toc": true,
+		".vscode/": true,
+		".devcontainer/": true,
+		".gitignore": true,
+		".gitattributes": true,
+		".github": true,
+		".editorconfig": true,
+		"target/": true,
+		".gradle/": true,
+		"**/gradle/": true,
+		"gradlew": true,
+		"gradlew.bat": true,
+		"build/": true,
+		".ruff.toml": true,
+		".ruff_cache/": true
+	},
+	"pythonTestExplorer.testFramework": "unittest",
+	"python.testing.unittestEnabled": true,
+	"python.testing.cwd": "./"{
+	"todo-tree.regex.regex": "(\\|%)\s*($TAGS)",
+	"todo-tree.general.tags": [
+		"BUG",
+		"HACK",
+		"FIXME",
+		"TODO",
+		"XXX",
+		"[ ]",
+		"[x]",
+		":>TODO",
+		"note"
+	],
+	"github.copilot.enable": {
+		"*": true,
+		"yaml": false,
+		"plaintext": false,
+		"markdown": false
+	},
+	"l13Diff.confirmCopy": false,
+	"editor.wordWrap": "on",
+	"workbench.colorTheme": "Default Light+",
+	"editor.minimap.enabled": false,
+	"latex-workshop.message.error.show": false,
+	"latex-workshop.message.warning.show": false,
+	"telemetry.enableTelemetry": false,
+	"telemetry.enableCrashReporter": false,
+	"telemetry.telemetryLevel":"off",
+	"workbench.editorAssociations": {
+		"*.ipynb": "jupyter-notebook"
+	},
+	"workbench.editorAssociations": {
+		"*.pdf": "pdf.preview"
+	},
+	"python.for"
+	"pdf-preview.default.sidebar": true,
+	"git.enableSmartCommit": true,
+	"git.confirmSync": false,
+	"editor.wordWrap": "on"
+	"latex-workshop.latex.recipes": [
+		{
+			"name": "tectonic",
+			"tools": [
+				"tectonic"
+			]
+		}
+	],
+	"files.exclude": {
+		".idea": true,
+		"__pycache__": true,
+		"**/.ipynb_checkpoints/": true,
+		"**/CachedExtensions/": true,
+		"**/CachedExtensionVSIXs/": true,
+		"**/extensions/": true,
+		"**/Machine": true,
+		"**/logs": true,
+		"**/User": true,
+		"**/machineid": true,
+		"**/coder.json": true,
+		"languagepacks.json": true,
+		"**/.pytest_cache/": true,
+		"**/.devcontainer/": true,
+		"*.log": true,
+		"*.aux": true,
+		"*.bak*": true,
+		"*.lof": true,
+		"*.lot": true,
+		"*.nlo": true,
+		"*.out": true,
+		"*.toc": true,
+		".vscode/": true,
+		".devcontainer/": true,
+		".gitignore": true,
+		".gitattributes": true,
+		".github": true,
+		".editorconfig": true,
+		"target/": true,
+		".gradle/": true,
+		"**/gradle/": true,
+		"gradlew": true,
+		"gradlew.bat": true,
+		"build/": true,
+		"**/.vscode/": true,
+		"**/CachedProfilesData/": true,
+		"**/.gitignore/": true,
+		"**/code-server-ipc.sock/": true,
+		"**/.gitmodules/": true,
+		".interaction_set_*.json": true,
+		"serve-web-key-half": true,
+		"**/__pycache__/": true,
+		"**/*.pyc": true,
+		"**/.github/": true,
+		"**/providers/": true,
+		"**/.Trash-0/": true
+	},
+	"pythonTestExplorer.testFramework": "unittest",
+	"python.testing.unittestEnabled": true,
+	"python.testing.cwd": "./",
+	"editor.insertSpaces": false,
+	"editor.tabSize": 4,
+}
+

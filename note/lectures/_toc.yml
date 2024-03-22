@@ -1,0 +1,15 @@
+format: jb-book
+root: intro
+parts:
+- caption: Tools and Techniques
+  numbered: true
+  chapters:
+  - file: geom_series
+  
+- caption: Other
+  numbered: true
+  chapters:
+  - file: troubleshooting
+  - file: zreferences
+  - file: status
+  - file: links

@@ -1,0 +1,31 @@
+name: "Upload"
+
+on:
+  workflow_dispatch:
+
+jobs:
+  analyze:
+    name: Analyze
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Build the executable
+      run: python3 -m pip install twine build && python3 -m build --wheel && python3 setup.py sdist
+
+    - name: Publish a Python distribution to PyPI
+      uses: pypa/gh-action-pypi-publish@release/v1
+      with:
+        user: __token__
+        password: ${{ secrets.PYPI_API_TOKEN }}
+
+    - name: Repository Dispatch
+      if: false
+      uses: peter-evans/repository-dispatch@v1
+      with:
+        token: ${{ secrets.REPO_ACCESS_TOKEN }}
+        repository: franceme/hugg
+        event-type: hugg_website_build
+        client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}"}'

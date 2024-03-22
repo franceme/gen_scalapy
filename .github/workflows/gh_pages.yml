@@ -1,0 +1,88 @@
+name: "GH_Pages"
+
+on:
+  workflow_dispatch:
+
+jobs:
+  analyze:
+    name: Analyze
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Install Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+
+    - name: Installing 7z
+      run: sudo apt-get install -y p7zip-full
+
+    - name: Add SecurePages
+      run: npm install staticrypt@2.6.2 -g
+
+    - name: Pulling the pyscripts
+      uses: dsaltares/fetch-gh-release-asset@master
+      with:
+        repo: 'franceme/py_scripts'
+        file: 'mini.zip'
+        token: ${{ secrets.FULLTOKENREPO }}
+
+    - name: List All
+      run: 7z x mini.zip mini/secure && rm mini.zip && mv mini/secure secure.py && rmdir mini && ls -altr
+
+    - name: Build the executable
+      run: python3 -m pip install pip invoke && cd note/ && invoke full
+
+    - name: Moving the built files
+      run: mv note/lectures/_build/html docs
+
+    - name: Execute the secretness
+      run: mv secure.py docs/ && cd docs/ && for x in $(find . -name "*.html");do python3 secure.py --foil $x  --password <PWD HERE>;done
+
+    - name: move secure out
+      run: mv docs/secure/ ./secure/
+
+    - name: copy new folders over
+      run: cp -r -n docs/* secure/
+
+    - name: Show
+      run: ls -altr
+
+    - name: Show
+      run: ls -altr docs/
+
+    - name: Show
+      run: ls -altr secure/
+
+    - name: Deploy
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GH_Pages }}
+        publish_dir: ./secure/
+  deploy:
+    name: Deploy the pages
+    needs: analyze
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: 'gh-pages'
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+      - name: Show
+        run: ls -altr
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # Upload entire repository
+          path: '.'
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

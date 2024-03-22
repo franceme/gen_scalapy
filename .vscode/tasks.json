@@ -1,0 +1,29 @@
+{
+	// See https://go.microsoft.com/fwlink/?LinkId=733558
+	// for the documentation about the tasks.json format
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "vudenc",
+			"type": "shell",
+			"command": "python3 /sync/__init__.py --vudenc",
+			"presentation": {
+				//"reveal": "silent",
+				"reveal": "always",
+				//"revealProblems": "onProblem",
+				//"close": false
+			}
+		},
+		{
+			"label": "santafixer",
+			"type": "shell",
+			"command": "python3 /sync/__init__.py --santafixer",
+			"presentation": {
+				//"reveal": "silent",
+				"reveal": "always",
+				//"revealProblems": "onProblem",
+				//"close": false
+			}
+		}
+	]
+}

@@ -1,0 +1,186 @@
+buildscript {
+	repositories {
+		mavenCentral()
+		jcenter()
+	}
+
+	dependencies {
+	}
+}
+
+import java.text.SimpleDateFormat
+
+plugins {
+	id 'java'
+}
+
+apply plugin: 'scala'
+apply plugin: 'idea'
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+
+configurations {
+	provided
+}
+
+scala {
+
+}
+
+sourceSets {
+	main {
+		compileClasspath += configurations.provided
+		scala {
+			setSrcDirs(['src/main/scala'])
+		}
+		resources {
+			setSrcDirs(['src/main/resources'])
+		}
+	}
+	test {
+		scala {
+			srcDir 'src/test/scala'
+		}
+		resources {
+			srcDir 'src/main/resources'
+		}
+	}
+}
+
+task updateVersion {
+	Properties props = new Properties()
+	InputStream ins = new FileInputStream(file("gradle.properties"))
+	props.load(ins)
+
+	ant.replaceregexp(
+			match: '\\${1}CVER.*\\${1}',
+			replace: '$CVER ' + props.getProperty("version") + '$',
+			flags: 'g',
+			byline: true) {
+
+		fileset(
+				dir: '.',
+				includes: 'README.md'
+		)
+	}
+
+	ant.replace(
+			dir: 'src/main/scala/',
+			token: '@VERSION@',
+			value: props.getProperty("version").replace("V", "")
+	)
+
+}
+
+task updateCopyRightYear {
+	Properties props = new Properties()
+	InputStream ins = new FileInputStream(file("gradle.properties"))
+	props.load(ins)
+
+	SimpleDateFormat year = new SimpleDateFormat("yyyy")
+
+	ant.replaceregexp(
+			match: 'Copyright © [0-9]{4} CryptoGuard',
+			replace: 'Copyright © ' + year.format(new Date()) + ' CryptoGuard',
+			flags: 'g',
+			byline: true) {
+
+		fileset(
+				dir: '.',
+				includes: '*.md'
+		)
+	}
+}
+
+//build.dependsOn(updateVersion)
+//build.dependsOn(updateCopyRightYear)
+
+repositories {
+	jcenter()
+	mavenLocal()
+	mavenCentral()
+	maven {
+		url "https://oss.sonatype.org/content/repositories/snapshots"
+	}
+	flatDir {
+		dirs 'libs'
+	}
+}
+
+dependencies {
+	compile "org.scala-lang:scala-library:" + scalaVersion
+	compile "org.scala-lang:scala-reflect:" + scalaVersion
+	compile "org.scala-lang:scala-compiler:" + scalaVersion
+	//compile "me.shadaj:scalapy-core:0.4.2"
+	// https://mvnrepository.com/artifact/dev.scalapy/scalapy-core
+	// https://github.com/cric96/experiment-2022-paper-tetci/blob/1034fa68c92a6181494a4e21534bae7dff0e55dc/gradle/libs.versions.toml#L4
+	//https://github.com/davidedomini/ac-based-federated-learning/blob/2a16562a21bc3fbd8fb6a2e68b12ca1824142e4a/build.gradle.kts#L64
+	compile 'dev.scalapy:scalapy-core_2.13:0.5.3'
+
+}
+
+task run(type: JavaExec, dependsOn: classes) {
+	main = mainClassFile
+	classpath sourceSets.main.runtimeClasspath
+	classpath configurations.runtime
+}
+
+task scalapy {
+	//Taken from
+	//https://www.codeconvert.ai/scala-to-groovy-converter
+
+	if (false) {
+		def pythonLdFlags = {
+			def withoutEmbed = "python3-config --ldflags".execute().text
+			if (withoutEmbed.contains("-lpython")) {
+				withoutEmbed.split(' ').findAll { it.trim() }
+			} else {
+				def withEmbed = "python3-config --ldflags --embed".execute().text
+				withEmbed.split(' ').findAll { it.trim() }
+			}
+		}
+
+		def pythonLibsDir = {
+			pythonLdFlags.find { it.startsWith("-L") }.drop("-L".length())
+		}
+		compileJava.options.compilerArgs += ["-Djna.library.path="+pythonLibsDir]
+	}
+
+	//https://github.com/scalapy/python-native-libs
+	compileJava.options.compilerArgs += ["-Dscalapy.python.library=python3.8"]
+}
+
+compileJava.dependsOn scalapy
+
+jar {
+	setBaseName(title)
+	setVersion(version)
+	from {
+		configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+	}
+	classifier = 'all'
+	manifest {
+		attributes 'Implementation-Title': title,
+				'Implementation-Version': version,
+				'Main-Class': mainClassFile
+	}
+	//include{sourceSets.main.output.classesDir}
+	zip64 true
+}
+//Ensuring all of the processors are being used for tests
+test {
+	reports {
+		html {
+			destination file("docs/gradleTestCoverage")
+		}
+	}
+}
+
+idea {
+	module {
+		// IntelliJ does not know about the standard idiom of provided as used in managing
+		// uber/shaded jar dependencies. Make it so!
+		scopes.PROVIDED.plus += [ configurations.provided ]
+	}
+}

@@ -1,0 +1,84 @@
+
+{
+	"name": "Core",
+	//"dockerComposeFile": "docker-compose.yml",
+	//"service": "app",
+	"image": "mcr.microsoft.com/devcontainers/universal:2",
+	//"image": "frantzme/pythondev:lite",
+	"runArgs": ["--init", "--privileged"],
+	"overrideCommand": false,
+	//"workspaceFolder": "/sync",
+	"workspaceFolder":"/workspaces/Dissertation/",
+	"customizations": {
+		// Configure properties specific to VS Code.
+		"vscode": {
+			// Set *default* container specific settings.json values on container create.
+			"settings": { 
+				"python.defaultInterpreterPath": "/usr/local/bin/python",
+				"python.linting.enabled": true,
+				"python.linting.pylintEnabled": true,
+				"python.formatting.autopep8Path": "/usr/local/py-utils/bin/autopep8",
+				"python.formatting.blackPath": "/usr/local/py-utils/bin/black",
+				"python.formatting.yapfPath": "/usr/local/py-utils/bin/yapf",
+				"python.linting.banditPath": "/usr/local/py-utils/bin/bandit",
+				"python.linting.flake8Path": "/usr/local/py-utils/bin/flake8",
+				"python.linting.mypyPath": "/usr/local/py-utils/bin/mypy",
+				"python.linting.pycodestylePath": "/usr/local/py-utils/bin/pycodestyle",
+				"python.linting.pydocstylePath": "/usr/local/py-utils/bin/pydocstyle",
+				"python.linting.pylintPath": "/usr/local/py-utils/bin/pylint",
+				"python.testing.pytestPath": "/usr/local/py-utils/bin/pytest",
+				"editor.minimap.enabled": false,
+				"workbench.editor.closeOnFileDelete": true,
+				"editor.wordWrap": "on"
+			},
+			
+			// Add the IDs of extensions you want installed when the container is created.
+			"extensions": [
+				"Gruntfuggly.todo-tree",
+				"ms-python.python",
+				"actboy168.tasks",
+				"dchanco.vsc-invoke",
+				"donjayamanne.githistory",
+				"alefragnani.Bookmarks",
+				"ZhouSir.visual-snake-code",
+				"James-Yu.latex-workshop",
+				"yzhang.markdown-all-in-one",
+				"tecosaur.latex-utilities",
+				"znck.grammarly",
+				"tomoki1207.pdf",
+				"marp-team.marp-vscode",
+				"sndst00m.vscode-native-svg-preview",
+				"jebbs.plantuml",
+				"ms-vscode.makefile-tools",
+				"GrapeCity.gc-excelviewer",
+				"k--kato.intellij-idea-keybindings",
+				"GitHub.copilot",
+				"hbenl.vscode-test-explorer",
+				"RandomFractalsInc.vscode-data-preview",
+				"malloydata.malloy-vscode",
+				"ms-toolsai.datawrangler",
+				"adamraichu.zip-viewer",
+				"zjffun.toolboxes",
+				"iterative.dvc",
+				"PKief.material-icon-theme",
+				"cweijan.vscode-mysql-client2",
+				"nimsaem.nimvscode",
+				"scala-lang.scala-snippets",
+				"scala-lang.scala",
+				"richardwillis.vscode-gradle-extension-pack",
+				"jmallien.ReplaceWithNewline"
+			]
+		}
+	},
+	//https://github.com/devcontainers/features
+	//https://github.com/devcontainers/features/tree/main/src/desktop-lite
+	//https://github.com/devcontainers/features/tree/main/src/sshd
+	//https://github.com/devcontainers/features/tree/main/src/docker-in-docker
+	"features": {
+		"ghcr.io/devcontainers/features/sshd:1": {},
+		"ghcr.io/devcontainers/features/docker-in-docker:2.10.1": {},
+		"ghcr.io/chuxel/feature-library/dind-patched:2": {}
+	},
+	//"postCreateCommand": "bash .devcontainer/start-docker.sh",
+	"postCreateCommand": "python3 .devcontainer/devcontainer.py"
+}
